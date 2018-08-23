@@ -109,10 +109,10 @@ def universal_download(url, output_dir='.', merge=True, info_only=False, **kwarg
             candies.append({'url': url,
                             'title': title})
 
+        headers = {'Referer': url}
         for candy in candies:
             try:
                 try:
-                    headers = {'Referer': url}
                     mime, ext, size = url_info(candy['url'], faker=False, headers=headers)
                     assert size
                 except:
@@ -126,7 +126,7 @@ def universal_download(url, output_dir='.', merge=True, info_only=False, **kwarg
                     try:
                         download_urls([candy['url']], candy['title'], ext, size,
                                       output_dir=output_dir, merge=merge,
-                                      faker=False)
+                                      faker=False, headers=headers)
                     except:
                         download_urls([candy['url']], candy['title'], ext, size,
                                       output_dir=output_dir, merge=merge,
